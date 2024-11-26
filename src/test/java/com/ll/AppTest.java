@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class AppTest {
 
     public static String run(String input) {
-        input = input.stripIndent().trim();
+        input = input.stripIndent().trim() + "\n종료";
         Scanner scanner = TestUtil.getScanner(input); // 입력을 대신 넣어줌
 
         ByteArrayOutputStream outputstream = TestUtil.setOutToByteArray(); // 출력을 대신 받아줌
