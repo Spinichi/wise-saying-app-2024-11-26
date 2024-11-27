@@ -44,10 +44,74 @@ public class WiseSayingControllerTest {
                 등록
                 현재를 사랑하라.
                 작자미상
+                등록
+                현사
+                작미
                 """);
 
         assertThat(output)
                 .contains("1번 명언이 등록되었습니다.")
-                .contains("2번 명언이 등록되었습니다.");
+                .contains("2번 명언이 등록되었습니다.")
+                .contains("3번 명언이 등록되었습니다.");
+    }
+
+    @Test
+    @DisplayName("목록 명령어 : 입력된 명언들을 출력한다.")
+    public void t7() {
+        String output = AppTest.run("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                등록
+                과거에 집착하지 마라.
+                작자미상
+                등록
+                나의 죽음을 적들에게 알리지 말라!
+                이순신
+                목록
+                """);
+        assertThat(output)
+                .contains("번호 / 작가 / 명언")
+                .contains("----------------------")
+                .contains("3 / 이순신 / 나의 죽음을 적들에게 알리지 말라!")
+                .contains("2 / 작자미상 / 과거에 집착하지 마라.")
+                .contains("1 / 작자미상 / 현재를 사랑하라.");
+    }
+
+    @Test
+    @DisplayName("삭제 명령어 : 입력한 번호에 해당하는 명언이 삭제된다.")
+    public void t8() {
+        String output = AppTest.run("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                등록
+                과거에 집착하지 마라.
+                작자미상
+                삭제?id=1
+                목록
+                """);
+
+        assertThat(output)
+                .contains("2 / 작자미상 / 과거에 집착하지 마라.")
+                .doesNotContain("1 / 작자미상 / 현재를 사랑하라.");
+    }
+
+    @Test
+    @DisplayName("삭제 명령어 : 존재하지 않는 명언번호에 대한 처리")
+    public void t9() {
+        String output = AppTest.run("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                등록
+                과거에 집착하지 마라.
+                작자미상
+                삭제?id=3
+                목록
+                """);
+
+        assertThat(output)
+                .contains("3번 명언은 존재하지 않습니다.");
     }
 }

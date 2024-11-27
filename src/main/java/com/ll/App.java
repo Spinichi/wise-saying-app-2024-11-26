@@ -20,14 +20,25 @@ public class App {
         System.out.println("== 명언 앱 ==");
 
         while (true) {
-            System.out.println("명령) ");
+            System.out.print("명령) ");
             String cmd = scanner.nextLine();
 
-            if ("종료".equals(cmd)) {
-                systemController.actionExit();
-                break;
-            } else if ("등록".equals(cmd)) {
-                wiseSayingController.actionAdd();
+            String[] cmdBits = cmd.split("\\?");
+            String actionName = cmdBits[0];
+
+            switch ( actionName ) {
+                case "종료" :
+                    systemController.actionExit();
+                    return;
+                case "등록" :
+                    wiseSayingController.actionAdd();
+                    break;
+                case "목록" :
+                    wiseSayingController.actionList();
+                    break;
+                case "삭제" :
+                    wiseSayingController.actionDelete(cmd);
+                    break;
             }
         }
     }
