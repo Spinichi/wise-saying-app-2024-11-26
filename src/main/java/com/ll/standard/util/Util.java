@@ -63,6 +63,7 @@ public class Util {
                         Files.delete(file); // 파일 삭제
                         return FileVisitResult.CONTINUE;
                     }
+
                     @Override
                     public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
                         Files.delete(dir); // 디렉토리 삭제
@@ -89,8 +90,25 @@ public class Util {
                 throw new RuntimeException(e);
             }
         }
+
         public static boolean rmdir(String dirPath) {
             return delete(dirPath);
         }
+    }
+
+    // 점심먹고
+    public static class json {
+//        public static String toString(Map<String, String> map) {
+//            StringBuilder sb = new StringBuilder();
+//
+//            sb.append("{");
+//            sb.append("\n");
+//
+//            map.forEach((key,value) -> {
+//                sb.append("    ");
+//            }   sb.append()
+//        })
+//
+//    }
     }
 }
