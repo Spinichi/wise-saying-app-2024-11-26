@@ -8,11 +8,15 @@ public class Command {
     private final Map<String, String> params;
 
     public Command(String cmd) {
-        String[] cmdBits = cmd.trim().split("\\?");
-        this.actionName = cmdBits[0];
         this.params = new HashMap<>();
+        String[] cmdBits = cmd.trim().split("\\?",2);
+        this.actionName = cmdBits[0].trim();
 
-        String queryString = cmdBits[1];
+        if (cmdBits.length == 1) return;
+
+        String queryString = cmdBits[1].trim();
+
+        if (queryString.isEmpty()) return;
 
         String[] params = queryString.split("&");
 
@@ -20,8 +24,6 @@ public class Command {
             String[] paramBits = param.split("=", 2);
             this.params.put(paramBits[0], paramBits[1]);
         }
-
-
     }
 
     public String getActionName() {
@@ -45,7 +47,7 @@ public class Command {
             return Integer.parseInt(value);
         } catch (Exception e) {
             System.out.println("정수화 과정에 실패함");
+            return defaultValue;
         }
-        return defaultValue;
     }
 }

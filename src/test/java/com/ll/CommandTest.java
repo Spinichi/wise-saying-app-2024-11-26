@@ -48,4 +48,23 @@ public class CommandTest {
         Command cmd = new Command("삭제?id=10");
         assertThat(cmd.getParamAsInt("number", 0)).isEqualTo(0);
     }
+
+    @Test
+    @DisplayName("""
+            cmd.getParamAsInt("number",0) == 0
+            cmd.getName("name") == "Paul"
+            """)
+    public void t7() {
+        Command cmd = new Command("목록?number=10&name=Paul");
+        assertThat(cmd.getParamAsInt("number", 0)).isEqualTo(10);
+        assertThat(cmd.getParam("name")).isEqualTo("Paul");
+    }
+
+    @Test
+    @DisplayName("""
+            new Command("목록? ") does not throw Exception
+            """)
+    public void t8() {
+        Command cmd = new Command("목록? ");
+    }
 }
